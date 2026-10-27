@@ -96,4 +96,65 @@ reasons = []
 
 if is_geothermal:
     recommendations.append("🌋 지열 발전 (Geothermal Energy)")
-    reasons.append("판 경계에 위치하거나 지열 활성 구
+    reasons.append("판 경계에 위치하거나 지열 활성 구역으로 24시간 안정적인 전력 공급이 가능합니다.")
+
+if solar_kwh >= 4.5:
+    recommendations.append("☀️ 대규모 태양광 발전 (Solar PV)")
+    reasons.append(f"일평균 일사량이 {solar_kwh} kWh/m²로 매우 높아 태양광 발전 효율이 뛰어납니다.")
+elif solar_kwh >= 3.0:
+    recommendations.append("🌤️ 건물일체형/소규모 태양광 (BIPV / Distributed Solar)")
+    reasons.append(f"일평균 일사량이 {solar_kwh} kWh/m² 수준으로 분산형 태양광 설치에 적합합니다.")
+
+if wind_m_s >= 7.0 and is_coastal:
+    recommendations.append("🌊 해상 풍력 발전 (Offshore Wind)")
+    reasons.append(f"해안에 인접해 있고 평균 풍속({wind_m_s} m/s)이 매우 높아 해상풍력 단지 조성에 최적입니다.")
+elif wind_m_s >= 5.5:
+    recommendations.append("💨 육상 풍력 발전 (Onshore Wind)")
+    reasons.append(f"평균 풍속이 {wind_m_s} m/s로 육상 풍력 발전기 가동 기준을 충족합니다.")
+
+if not recommendations:
+    recommendations.append("🔋 복합 분산형 에너지 & 연료전지")
+    reasons.append("기본 기후 자원이 제한적이므로 스마트그리드 기반의 자원 분산 활용이 권장됩니다.")
+
+# ---------------------------------------------------------
+# 결과 화면 출력
+# ---------------------------------------------------------
+col1, col2 = st.columns([1, 1])
+
+with col1:
+    st.subheader(f"📊 {selected_city} 기후 분석 데이터")
+    st.write(f"- **위도/경도:** `{lat}, {lon}`")
+    
+    m1, m2 = st.columns(2)
+    m1.metric("☀️ 일평균 일사량", f"{solar_kwh} kWh/m²")
+    m2.metric("💨 평균 풍속", f"{wind_m_s} m/s")
+    
+    st.info(f"**해안 인접 여부:** {'예' if is_coastal else '아니오'} | **지열 활성 구역:** {'예' if is_geothermal else '아니오'}")
+
+with col2:
+    st.subheader("💡 최적 맞춤형 재생에너지 추천")
+    for rec in recommendations:
+        st.success(f"**{rec}**")
+    
+    st.write("#### 🔍 추천 근거:")
+    for r in reasons:
+        st.markdown(f"- {r}")
+
+# ---------------------------------------------------------
+# 발표문 연계: 지속가능한 에너지전환의 한계 극복 제언
+# ---------------------------------------------------------
+st.divider()
+st.subheader("🛠️ 지속가능한 에너지전환을 위한 핵심 해결책")
+
+c1, c2, c3 = st.columns(3)
+with c1:
+    st.markdown("### 1. 지역 맞춤형 선별")
+    st.write("기후 데이터를 기반으로 발전 효율이 가장 높은 에너지원을 선택하여 자원 낭비를 줄입니다.")
+with c2:
+    st.markdown("### 2. ESS (에너지저장장치)")
+    st.write("기상 조건에 따른 발전량의 불안정성을 극복하기 위해 대용량 배터리 저장 체계를 구축합니다.")
+with c3:
+    st.markdown("### 3. 지능형 전력망 (Smart Grid)")
+    st.write("지역 간 전력 공급 불균형을 해소하고 안정적인 고전압 송전 네트워크를 조성합니다.")
+
+st.caption("Data Source: Open-Meteo Weather API & World Bank Global Solar/Wind Atlas 기준 참고")
