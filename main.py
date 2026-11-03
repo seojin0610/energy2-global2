@@ -12,31 +12,35 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------
-# 2. Custom CSS - 가독성 향상 및 글자색 명확화
+# 2. Custom CSS - 가독성 극대화 및 글씨 크기 확장
 # ---------------------------------------------------------
 css_style = """
 <style>
     /* 추천 에너지 솔루션 메인 박스 스타일 */
     .recommend-box {
         background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-        border: 2px solid #4ea8de;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 15px;
-        box-shadow: 0 4px 15px rgba(78, 168, 222, 0.3);
+        border: 3px solid #4ea8de;
+        border-radius: 14px;
+        padding: 22px;
+        margin-bottom: 18px;
+        box-shadow: 0 6px 20px rgba(78, 168, 222, 0.4);
     }
+    /* 추천 제목 글씨체 대폭 확대 (24px) */
     .recommend-title {
         color: #f8f9fa !important;
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 8px;
+        font-size: 24px !important;
+        font-weight: 800 !important;
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
     }
+    /* 추천 설명 글씨체 확대 (17px) */
     .recommend-desc {
         color: #e9ecef !important;
-        font-size: 15px;
-        line-height: 1.5;
+        font-size: 17px !important;
+        line-height: 1.6;
+        font-weight: 500;
     }
-    /* 제언 카드 - 글자 가독성 극대화 (밝은 카드 + 어두운 대비 글자) */
+    /* 제언 카드 - 글자 가독성 극대화 */
     .highlight-card {
         background-color: #f0fdf4;
         border: 2px solid #22c55e;
@@ -47,14 +51,20 @@ css_style = """
     }
     .card-title {
         color: #14532d !important;
-        font-size: 17px;
+        font-size: 18px !important;
         font-weight: bold;
         margin-bottom: 6px;
     }
     .card-body {
         color: #166534 !important;
-        font-size: 14px;
-        line-height: 1.4;
+        font-size: 15px !important;
+        line-height: 1.5;
+    }
+    /* 출처 링크 스타일 */
+    .source-link {
+        color: #0284c7 !important;
+        text-decoration: underline;
+        font-weight: 600;
     }
 </style>
 """
@@ -280,7 +290,7 @@ with col2:
         st.markdown(html_code, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# 9. 한계 극복 제언 (글자색 100% 명확히 보장)
+# 9. 한계 극복 제언
 # ---------------------------------------------------------
 st.divider()
 st.subheader("🛠️ 지속가능한 글로벌 에너지전환 제언")
@@ -310,4 +320,16 @@ with c3:
     </div>
     """, unsafe_allow_html=True)
 
-st.caption("Data Source: Open-Meteo Global Weather API | 분석 시스템 개발자: 박서진")
+# ---------------------------------------------------------
+# 10. 클릭 가능한 하이퍼링크가 포함된 하단 출처 표시
+# ---------------------------------------------------------
+st.markdown("""
+<div style="font-size: 13px; color: #6c757d; margin-top: 20px;">
+    <b>Data Sources:</b> 
+    <a href="https://open-meteo.com" target="_blank" class="source-link">Open-Meteo Weather API</a> | 
+    <a href="https://globalsolaratlas.info" target="_blank" class="source-link">World Bank Global Solar Atlas</a> | 
+    <a href="https://globalwindatlas.info" target="_blank" class="source-link">World Bank Global Wind Atlas</a>
+    <br>
+    <i>분석 시스템 개발자: 박서진</i>
+</div>
+""", unsafe_allow_html=True)
